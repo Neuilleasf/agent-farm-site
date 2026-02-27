@@ -3,35 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' data:;">
 <title>Luminary Studio — Creative Digital Agency</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
+  /* Self-hosted subsetted fonts */
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/fonts/ClashDisplay-Variable-subset.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Newsreader';
+    src: url('/fonts/Newsreader-Variable-subset.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/Satoshi-Variable-subset.woff2') format('woff2');
+    font-weight: 300 900;
+    font-display: swap;
+    font-style: normal;
+  }
+
   :root {
     --bg: #050508;
     --bg2: #0f0f1a;
     --accent: #6C63FF;
     --accent2: #FF6B9D;
     --text: #f0f0ff;
+    --text-dark: #b0b0c0;
     --muted: #8888aa;
     --card: rgba(255,255,255,0.03);
     --border: rgba(255,255,255,0.08);
+
+    /* Bulletproof Typographic System */
+    --font-heading: 'Clash Display', 'Arial Black', Impact, system-ui, sans-serif;
+    --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --font-body: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
+    
+    --scale-ratio: 1.25;
+
+    /* Fluid Typographic Scale */
+    --text-xs: clamp(0.75rem, 0.71rem + 0.2vw, 0.85rem);
+    --text-sm: clamp(0.875rem, 0.82rem + 0.28vw, 1rem);
+    --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --text-md: clamp(1.125rem, 1.05rem + 0.38vw, 1.313rem);
+    --text-lg: clamp(1.313rem, 1.22rem + 0.46vw, 1.543rem);
+    --text-xl: clamp(1.543rem, 1.4rem + 0.72vw, 1.903rem);
+    --text-2xl: clamp(1.903rem, 1.69rem + 1.07vw, 2.438rem);
+    --text-3xl: clamp(2.438rem, 2.11rem + 1.64vw, 3.259rem);
+    --text-4xl: clamp(3.259rem, 2.75rem + 2.54vw, 4.528rem);
+    --text-5xl: clamp(4.528rem, 3.65rem + 4.39vw, 6.724rem);
+    --text-6xl: clamp(5.828rem, 4.65rem + 5.39vw, 8.724rem);
   }
+
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Outfit', system-ui, sans-serif;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* NOISE OVERLAY */
   .noise {
     position: fixed; inset: 0; z-index: 9999; pointer-events: none;
     background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.05;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .serif-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text-dark);
   }
 
   /* NAV */
@@ -44,21 +106,20 @@
     -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
   }
-  .logo { font-family: 'Syne', sans-serif; font-size:1.5rem; font-weight:800; letter-spacing:-0.5px; }
+  .logo { font-family: var(--font-heading); font-size:var(--text-lg); font-weight:800; letter-spacing:-0.05em; text-transform:uppercase; }
   .logo span { color: var(--accent); }
   nav ul { list-style:none; display:flex; gap:3rem; align-items:center; }
-  nav a { text-decoration:none; color:var(--muted); font-size:0.95rem; font-weight:500; letter-spacing:0.5px; transition:color 0.3s; }
+  nav a { text-decoration:none; color:var(--muted); font-size:var(--text-sm); font-weight:500; transition:color 0.3s; }
   nav a:hover { color:var(--text); }
   .nav-cta {
     padding: 0.6rem 1.8rem; border-radius:100px;
-    background: var(--text); color:var(--bg); font-size:0.9rem; font-weight:600;
-    text-decoration:none; transition: all 0.3s;
+    background: var(--text); color:var(--bg); font-weight:600;
+    transition: all 0.3s;
+    text-decoration:none;
   }
   .nav-cta:hover { background:var(--accent); color:#fff; transform:translateY(-2px); }
 
-  /* ====================== */
-  /* HERO                   */
-  /* ====================== */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction:column; justify-content:center; align-items:center;
@@ -67,12 +128,11 @@
     position: relative;
   }
 
-  /* High-Performance Spotlight Cursor */
   .spotlight {
     position: fixed;
     top: 0; left: 0;
     width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, rgba(255,107,157,0.05) 30%, transparent 60%);
+    background: radial-gradient(circle, rgba(108,99,255,0.08) 0%, rgba(255,107,157,0.03) 30%, transparent 60%);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
@@ -80,38 +140,64 @@
     will-change: transform;
   }
 
-  /* Hero Content Styles */
   .hero-badge {
-    font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+    font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
     color: var(--accent2);
     margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
+    font-family: var(--font-body);
+    animation: reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    opacity: 0; transform: translateY(20px);
   }
 
   .hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 0.95;
-    font-weight: 800;
-    letter-spacing: -2px;
+    font-size: var(--text-6xl);
     margin-bottom: 2rem;
     max-width: 1200px;
   }
 
-  /* Kinetic Masking */
-  .line-wrap {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.1em; /* Prevent descender clipping */
+  .hero-sub {
+    font-size: var(--text-xl);
+    font-family: var(--font-serif);
+    font-weight: 400;
+    max-width: 700px;
+    color: var(--text-dark);
+    margin-bottom: 3rem;
+    line-height: 1.4;
+    animation: reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation-delay: 0.4s;
+    opacity: 0; transform: translateY(20px);
   }
 
+  .hero-actions {
+    display: flex; gap: 1.5rem; justify-content: center;
+    animation: reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation-delay: 0.6s;
+    opacity: 0; transform: translateY(20px);
+  }
+
+  .btn {
+    padding: 1rem 2.5rem; border-radius: 100px;
+    font-weight: 600; font-size: var(--text-base); text-decoration: none;
+    transition: all 0.3s ease; font-family: var(--font-body);
+  }
+  .btn-primary { background: var(--text); color: var(--bg); }
+  .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--text); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+  .line-wrap { display: block; overflow: hidden; padding-bottom: 0.1em; }
   .line {
-    display: block;
-    will-change: transform, opacity;
+    display: block; will-change: transform, opacity;
+    animation: reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    transform: translateY(100%); opacity: 0;
+  }
+  .line-wrap:nth-child(2) .line { animation-delay: 0.15s; }
+
+  @keyframes reveal {
+    to { transform: translateY(0); opacity: 1; }
   }
 
-  .line span.gradient-text {
+  .gradient-text {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -119,72 +205,28 @@
     color: transparent;
   }
 
-  .hero-sub {
-    font-size: 1.25rem;
-    color: var(--muted);
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    line-height: 1.6;
-    opacity: 0;
+  /* SECTION */
+  .section {
+    padding: 8rem 2rem; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
   }
-
-  .hero-actions {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-
-  .btn-wrap {
-    opacity: 0;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 100px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .btn-primary {
-    background: var(--text);
-    color: var(--bg);
-  }
-  
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255,255,255,0.15);
-  }
-
-  .btn-outline {
-    border: 1px solid var(--border);
-    color: var(--text);
-    background: transparent;
-    backdrop-filter: blur(10px);
-  }
-
-  .btn-outline:hover {
-    background: var(--card);
-    border-color: var(--muted);
-    transform: translateY(-3px);
-  }
+  .section-title { font-size: var(--text-5xl); margin-bottom: 1.5rem; }
+  .section-sub { font-size: var(--text-lg); color: var(--muted); font-family: var(--font-body); max-width: 600px; }
+  .container { max-width: 1200px; width: 100%; }
 
   @media (max-width: 768px) {
-    nav { padding: 1.5rem 2rem; }
+    nav { padding: 1rem 2rem; }
     nav ul { display: none; }
-    .hero-title { letter-spacing: -1px; }
-    .spotlight { display: none; } /* Disable spotlight on mobile for Otto's sanity */
+    .hero { padding: 6rem 1rem 3rem; }
+    .hero-actions { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
   }
 </style>
 </head>
 <body>
-
   <div class="noise"></div>
-
+  
   <nav>
-    <div class="logo">Luminary<span>.</span></div>
+    <div class="logo"><span>Luminary</span> Studio</div>
     <ul>
       <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
@@ -193,87 +235,44 @@
     <a href="#contact" class="nav-cta">Let's Talk</a>
   </nav>
 
-  <section class="hero">
-    <div class="spotlight"></div>
-    
-    <div class="hero-badge">Digital Innovation Studio</div>
-    
-    <!-- Documented, semantic H1 that Echo and Otto cried for, styled for Awwwards -->
-    <h1 class="hero-title" aria-label="Digital Experiences That Defy Expectations.">
-      <span class="line-wrap" aria-hidden="true">
-        <span class="line">Digital</span>
-      </span>
-      <span class="line-wrap" aria-hidden="true">
-        <span class="line">Experiences</span>
-      </span>
-      <span class="line-wrap" aria-hidden="true">
-        <span class="line">That <span class="gradient-text">Defy</span></span>
-      </span>
-      <span class="line-wrap" aria-hidden="true">
-        <span class="line">Expectations.</span>
-      </span>
-    </h1>
-
-    <p class="hero-sub">We engineer kinetic typography, immersive storytelling, and digital platforms that command absolute attention.</p>
-
-    <div class="hero-actions">
-      <div class="btn-wrap">
-        <a href="#work" class="btn btn-primary">View Our Work</a>
+  <main>
+    <section class="hero">
+      <div class="spotlight"></div>
+      <div class="hero-badge" aria-label="Welcome">We are Luminary</div>
+      <h1 class="hero-title">
+        <span class="line-wrap"><span class="line">Radical <span class="serif-italic">clarity.</span></span></span>
+        <span class="line-wrap"><span class="line">Brutal <span class="gradient-text">impact.</span></span></span>
+      </h1>
+      <p class="hero-sub">
+        We build robust, award-winning interfaces focusing on strict semantic architecture, brutalist typography, and uncompromised performance.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">Explore Works</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
       </div>
-      <div class="btn-wrap">
-        <a href="#contact" class="btn btn-outline">Start a Project</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- GSAP CDN for Awwwards-level Motion -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <section id="work" class="section">
+      <div class="container">
+        <h2 class="section-title">Selected Works</h2>
+        <p class="section-sub">A curated selection of our most impactful digital products, engineered for scale and designed to provoke.</p>
+      </div>
+    </section>
+  </main>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Kinetic Typography Reveal (The Leo Special)
-      // Choppy raw CSS keyframes are out. GPU-accelerated GSAP staggered masking is in.
-      gsap.fromTo('.hero-title .line',
-        { y: '120%', opacity: 0, rotateZ: 4 },
-        { 
-          y: '0%', 
-          opacity: 1, 
-          rotateZ: 0, 
-          duration: 1.4, 
-          stagger: 0.1, 
-          ease: 'power4.out', 
-          delay: 0.2 
+    const spotlight = document.querySelector('.spotlight');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      requestAnimationFrame(() => {
+        if(spotlight) {
+          spotlight.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
         }
-      );
-
-      // Fade up supporting elements
-      gsap.to('.hero-badge',
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 }
-      );
-
-      gsap.fromTo('.hero-sub',
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 1 }
-      );
-
-      gsap.fromTo('.btn-wrap',
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out', delay: 1.1 }
-      );
-
-      // 2. High-Performance Spotlight (Eden's dream, Rex's implementation)
-      // Using GSAP quickTo avoids firing a full tween on every mousemove tick (60fps guaranteed)
-      const spotlight = document.querySelector('.spotlight');
-      
-      // Only init on non-touch devices to respect Otto's mobile sanity check
-      if (window.matchMedia("(pointer: fine)").matches) {
-        let xTo = gsap.quickTo(spotlight, "left", {duration: 0.8, ease: "power3"}),
-            yTo = gsap.quickTo(spotlight, "top", {duration: 0.8, ease: "power3"});
-
-        window.addEventListener("mousemove", (e) => {
-          xTo(e.clientX);
-          yTo(e.clientY);
-        });
-      }
+      });
     });
   </script>
 </body>
