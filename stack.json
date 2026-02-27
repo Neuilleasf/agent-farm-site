@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "decided_at": "2025-01-01T00:00:00Z",
+  "decided_by": "Aria",
+  "framework": "vanilla",
+  "css_approach": "custom",
+  "animation_lib": "css-keyframes",
+  "font_strategy": "system-ui",
+  "icon_strategy": "emoji",
+  "extras": [],
+  "rationale": "Starting lean — vanilla HTML/CSS/JS for maximum control and performance. Agents will propose additions as the site evolves.",
+  "available_cdns": {
+    "gsap": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+    "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+    "vanta": "https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.waves.min.js",
+    "locomotive": "https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js",
+    "splitting": "https://unpkg.com/splitting/dist/splitting.min.js",
+    "lenis": "https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"
+  },
+  "history": []
+}
