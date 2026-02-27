@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luminary Studio — Creative Digital Agency</title>
+<style>
+  :root {
+    --bg: #080810;
+    --bg2: #0f0f1a;
+    --accent: #6C63FF;
+    --accent2: #FF6B9D;
+    --text: #f0f0ff;
+    --muted: #8888aa;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; width:100%; z-index:100;
+    padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(8,8,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-size:1.4rem; font-weight:700; letter-spacing:-0.5px; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style:none; display:flex; gap:2.5rem; }
+  nav a { text-decoration:none; color:var(--muted); font-size:0.9rem; letter-spacing:0.5px; transition:color 0.3s; }
+  nav a:hover { color:var(--text); }
+  .nav-cta {
+    padding: 0.5rem 1.5rem; border-radius:100px;
+    background: var(--accent); color:#fff; font-size:0.85rem; font-weight:600;
+    text-decoration:none; transition: all 0.3s;
+  }
+  .nav-cta:hover { background:#8B84FF; transform:translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(108,99,255,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(255,107,157,0.15) 0%, transparent 50%);
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding: 0.4rem 1rem; border-radius:100px;
+    background: var(--card); border: 1px solid var(--border);
+    font-size:0.8rem; color:var(--muted); margin-bottom:2rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:#6C63FF; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    position:relative;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--muted); max-width:600px;
+    line-height:1.7; margin-bottom:3rem;
+  }
+  .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .btn-primary {
+    padding:0.9rem 2.5rem; border-radius:100px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#fff; font-weight:600; text-decoration:none;
+    transition:all 0.3s; font-size:1rem;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(108,99,255,0.4); }
+  .btn-secondary {
+    padding:0.9rem 2.5rem; border-radius:100px;
+    border: 1px solid var(--border);
+    color:var(--text); text-decoration:none; font-size:1rem;
+    transition:all 0.3s; backdrop-filter:blur(10px);
+  }
+  .btn-secondary:hover { border-color:var(--accent); background:var(--card); }
+
+  /* STATS */
+  .stats {
+    display:flex; justify-content:center; gap:4rem;
+    padding:3rem 2rem; flex-wrap:wrap;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  }
+  .stat { text-align:center; }
+  .stat-num { font-size:2.5rem; font-weight:800; letter-spacing:-1px; color:var(--text); }
+  .stat-label { font-size:0.8rem; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-top:0.3rem; }
+
+  /* WORK */
+  section { padding: 8rem 4rem; max-width:1400px; margin:0 auto; }
+  .section-label {
+    font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
+    color:var(--accent); margin-bottom:1rem;
+  }
+  .section-title { font-size:clamp(2rem,5vw,3.5rem); font-weight:800; letter-spacing:-1px; margin-bottom:1.5rem; }
+  .section-sub { color:var(--muted); font-size:1.1rem; max-width:500px; line-height:1.7; margin-bottom:4rem; }
+
+  .work-grid {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(360px,1fr)); gap:1.5rem;
+  }
+  .work-card {
+    border-radius:20px; overflow:hidden;
+    background: var(--card); border:1px solid var(--border);
+    transition:transform 0.3s, box-shadow 0.3s;
+    cursor:pointer;
+  }
+  .work-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(108,99,255,0.2); }
+  .work-img {
+    height:280px;
+    background: linear-gradient(135deg, rgba(108,99,255,0.3), rgba(255,107,157,0.3));
+    display:flex; align-items:center; justify-content:center;
+    font-size:4rem;
+  }
+  .work-info { padding:1.5rem; }
+  .work-tag {
+    display:inline-block; padding:0.3rem 0.8rem; border-radius:100px;
+    background:rgba(108,99,255,0.15); color:var(--accent);
+    font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:0.8rem;
+  }
+  .work-title { font-size:1.3rem; font-weight:700; margin-bottom:0.5rem; }
+  .work-desc { color:var(--muted); font-size:0.9rem; line-height:1.6; }
+
+  /* SERVICES */
+  .services-grid {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem;
+  }
+  .service-card {
+    padding:2rem; border-radius:20px;
+    background:var(--card); border:1px solid var(--border);
+    transition:all 0.3s;
+  }
+  .service-card:hover { border-color:var(--accent); background:rgba(108,99,255,0.08); }
+  .service-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .service-title { font-size:1.2rem; font-weight:700; margin-bottom:0.7rem; }
+  .service-desc { color:var(--muted); font-size:0.9rem; line-height:1.6; }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+  .about-visual {
+    height:500px; border-radius:24px;
+    background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(255,107,157,0.2));
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:6rem; position:relative; overflow:hidden;
+  }
+  .about-visual::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 50%, rgba(108,99,255,0.3) 0%, transparent 60%);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top:1px solid var(--border);
+    padding:4rem; display:flex; justify-content:space-between;
+    align-items:center; flex-wrap:wrap; gap:2rem;
+    color:var(--muted); font-size:0.85rem;
+  }
+  .footer-logo { font-size:1.2rem; font-weight:700; color:var(--text); }
+  .footer-logo span { color:var(--accent); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Luminary<span>.</span></div>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's talk →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">Available for projects · 2025</div>
+  <h1>We craft<br><span class="highlight">digital experiences</span><br>that matter.</h1>
+  <p class="hero-sub">Award-winning creative studio specializing in bold design, immersive web experiences, and digital products that push boundaries.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn-primary">View our work</a>
+    <a href="#contact" class="btn-secondary">Start a project</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">120+</div>
+    <div class="stat-label">Projects delivered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Awwwards won</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">40+</div>
+    <div class="stat-label">Happy clients</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5★</div>
+    <div class="stat-label">Average rating</div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Projects we're<br>proud of.</h2>
+  <p class="section-sub">From startups to global brands, we design experiences that convert and inspire.</p>
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="work-img">🌊</div>
+      <div class="work-info">
+        <div class="work-tag">Brand · Web</div>
+        <div class="work-title">Oceanic Finance</div>
+        <div class="work-desc">A complete rebrand and interactive web experience for a fintech challenger brand.</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="work-img">🔮</div>
+      <div class="work-info">
+        <div class="work-tag">Product · App</div>
+        <div class="work-title">Prism Dashboard</div>
+        <div class="work-desc">Data visualization tool with 3D charts and real-time collaboration features.</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="work-img">🌿</div>
+      <div class="work-info">
+        <div class="work-tag">E-commerce</div>
+        <div class="work-title">Verdant Collective</div>
+        <div class="work-desc">Sustainable fashion platform with an immersive shopping experience.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">What we do</div>
+  <h2 class="section-title">Services built<br>for impact.</h2>
+  <p class="section-sub">We combine strategy, design, and technology to create digital products that stand out.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <div class="service-title">Brand Design</div>
+      <div class="service-desc">Visual identities that communicate your values and connect with your audience on a deeper level.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💻</div>
+      <div class="service-title">Web Development</div>
+      <div class="service-desc">High-performance websites and web apps built with modern technologies and best practices.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✨</div>
+      <div class="service-title">Motion & Animation</div>
+      <div class="service-desc">Immersive animations and micro-interactions that bring your digital presence to life.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧭</div>
+      <div class="service-title">UX Strategy</div>
+      <div class="service-desc">User-centered design research and strategy to ensure every touchpoint works beautifully.</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">About us</div>
+      <h2 class="section-title">A studio obsessed with craft.</h2>
+      <p class="section-sub">We're a small, focused team of designers, developers, and strategists who believe that digital experiences should be beautiful, functional, and memorable. Based in the cloud, working globally.</p>
+      <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1rem;">Work with us</a>
+    </div>
+    <div class="about-visual">🎭</div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <div class="footer-logo">Luminary<span>.</span></div>
+    <div style="margin-top:0.5rem;">© 2025 Luminary Studio. All rights reserved.</div>
+  </div>
+  <div>hello@luminary.studio</div>
+  <div style="display:flex; gap:1rem;">
+    <a href="#" style="color:var(--muted); text-decoration:none;">Twitter</a>
+    <a href="#" style="color:var(--muted); text-decoration:none;">Instagram</a>
+    <a href="#" style="color:var(--muted); text-decoration:none;">Dribbble</a>
+  </div>
+</footer>
+
+</body>
+</html>
